@@ -1,0 +1,54 @@
+<mat-toolbar style="background-color: #fff;border-top: 1px solid #e8e0e0;border-bottom: 1px solid #e8e0e0;">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Remainders</span>
+  <span class="example-spacer"></span>
+  <div class="searchbar">
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput [(ngModel)]="searchText" type="search" placeholder="Search" class="search-input">
+    </mat-form-field>
+  </div>
+
+  <span class="example-spacer"></span>
+
+  <button mat-mini-fab color="primary">A</button>
+</mat-toolbar>
+
+
+<div class="card-container">
+  <mat-card (click)="fnOpenTaskDilog()">
+    <span>Take a note... </span>
+    <mat-icon aria-hidden="false" style="cursor: pointer" (click)="fnOpenAddlist($event)" matTooltip="New List"
+      aria-label="Example home icon">
+      check_box</mat-icon>
+  </mat-card>
+</div>
+<div class="row list" *ngIf="list && list.length > 0">
+  <div *ngFor="let item of list | LockFilter: searchText,let i = index" class="col-sm-6 col-md-4  col-lg-3">
+    <mat-card class="example-card">
+      <mat-card-content>
+        <p *ngIf="item.title">{{item.title}}</p>
+        <p *ngIf="item.description">{{item.description}}</p>
+        <ng-container *ngIf="item.list && item.list.length > 0">
+          <span *ngFor="let subtask of item.list ">
+            <mat-checkbox [(ngModel)]="subtask.completed">
+              <span
+                [ngStyle]="{'text-decoration': subtask.completed == true ? 'line-through' : 'none'}">{{subtask.name}}</span>
+            </mat-checkbox>
+          </span>
+        </ng-container>
+      </mat-card-content>
+      <mat-card-actions style="text-align: end;">
+        <mat-icon style="cursor: pointer;" mat-icon-button [matMenuTriggerFor]="menu">more_vert</mat-icon>
+        <mat-menu #menu="matMenu">
+          <span mat-menu-item (click)="fnClickDelete(i)">Delete note</span>
+        </mat-menu>
+      </mat-card-actions>
+    </mat-card>
+
+  </div>
+
+
+</div>

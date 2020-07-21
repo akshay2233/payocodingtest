@@ -1,0 +1,12 @@
+<form class="form-container" [formGroup]="taskformForm" novalidate (ngSubmit)="onSubmit()">
+
+    <mat-dialog-content class="mat-typography">
+        <textarea formControlName="title" rows="1" cols="1" type="text" id="fname" name="firstname"
+            placeholder="Title"></textarea>
+        <textarea formControlName="description" type="text" id="lname" name="lastname"
+            placeholder="Take a note.."></textarea>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button (click)="fnCancel()" style="box-shadow: none;"  mat-raised-button>Close</button>
+    </mat-dialog-actions>
+</form>

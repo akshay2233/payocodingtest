@@ -1,0 +1,41 @@
+<mat-dialog-content class="mat-typography">
+    <textarea rows="1" [(ngModel)]="title" cols="1" type="text" id="fname" name="firstname"    placeholder="Title"></textarea>
+    <div>
+        <span *ngFor="let subtask of lstlist,let i = index;">
+            <div class="example-list-section" *ngIf="subtask.completed == false">
+                <div>
+                    <mat-checkbox [(ngModel)]="subtask.completed" (change)="fnChangeList(i)">
+                        <mat-form-field><input matInput id="#test{{i}}" [(ngModel)]="subtask.name"></mat-form-field>
+                    </mat-checkbox>
+                </div>
+            </div>
+        </span>
+        <div class="input-container">
+            <mat-icon class="material-icons">add</mat-icon>
+            <input class="addinput" (keyup)="fnChangeText()" [(ngModel)]="textEnter" placeholder="List Item" type="text" matInput>
+        </div>
+
+    </div>
+    <div *ngIf="lstlistSelected && lstlistSelected.length > 0">
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{lstlistSelected.length}} <span style="margin-left: 6px;">Completed items</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <span *ngFor="let subtask of lstlist,let i = index;">
+                <div class="example-list-section" *ngIf="subtask.completed == true">
+                    <div>
+                        <mat-checkbox [(ngModel)]="subtask.completed" (change)="fnChangeList(i)">
+                            <mat-form-field><input  [ngStyle]="{'text-decoration': 'line-through'}"  matInput id="#test{{i}}" [(ngModel)]="subtask.name">
+                            </mat-form-field>
+                        </mat-checkbox>
+                    </div>
+                </div>
+            </span>
+        </mat-expansion-panel>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button (click)="fnCancel()" style="box-shadow: none;" mat-raised-button>Close</button>
+</mat-dialog-actions>
